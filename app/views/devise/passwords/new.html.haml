@@ -1,0 +1,16 @@
+.flex.items-center.justify-center.gap-2
+  .bg-white.p-6.rounded-lg
+    %h2.text-2xl.font-bold.text-center.my-2 Forgot your password?
+    = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+      = render "devise/shared/error_messages", resource: resource
+
+      .field.py-2
+        = f.label :email
+        %br/
+        = f.email_field :email, autofocus: true, autocomplete: "email", class: "w-full mt-2"
+
+      .actions
+        = f.submit "Send me reset password instructions", class: "dark-button"
+
+      .text-center.py-2.text-red-600
+        = render "devise/shared/links"

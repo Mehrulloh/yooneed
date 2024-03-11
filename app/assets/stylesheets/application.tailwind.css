@@ -1,0 +1,30 @@
+@import 'navbar.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+
+  body {
+    @apply bg-gray-200;
+  }
+
+  main {
+    @apply mx-auto min-h-screen mt-10;
+  }
+
+  .dark-button {
+    @apply bg-black text-white px-4 py-2 rounded cursor-pointer w-full my-2
+  }
+
+  .links-container {
+    @apply text-center py-2 text-red-600
+  }
+
+  .alert-button {
+   @apply inline-flex text-gray-400 focus:outline-none focus:text-gray-500 transition ease-in-out duration-150
+  }
+
+}
+

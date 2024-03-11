@@ -1,0 +1,11 @@
+.navbar {
+  @apply container mx-auto w-full
+}
+
+.navbar-container {
+  @apply flex items-center justify-between w-full
+}
+
+.nav-link {
+  @apply text-lg
+}

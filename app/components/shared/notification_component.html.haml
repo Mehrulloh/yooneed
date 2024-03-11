@@ -1,0 +1,18 @@
+.absolute.mt-10.w-full.flex.flex-col.items-end.justify-end.hidden{data: {controller: "notification"} }
+  .max-w-sm.w-full.bg-white.shadow-lg.rounded-lg.pointer-events-auto
+    .rounded-lg.shadow-xs.overflow-hidden
+      .p-4
+        .flex.items-start
+          .flex-shrink-0
+            %div{:class => "h-6 w-6 #{@icon_color_class}"}
+              %i{:class => "far-#{@icon_class}"}
+          .ml-3.w-0.flex-1.pt-1
+            %p.text-sm.leading-5.font-medium.text-gray-900
+              = @data[:title]
+
+            - if @data[:body].present?
+              %p.mt-1.text-sm.leading-5.font-medium.text-gray-400
+                = @data[:body]
+
+          .ml-4.flex-shrink-0.flex
+            %button.alert-button.text-black{data: { action: "click->notification#close" }} x

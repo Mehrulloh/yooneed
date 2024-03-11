@@ -1,0 +1,19 @@
+%nav.navbar
+  .navbar-container
+    %div{:width => "33.3%"}
+      = link_to "YooNeed", root_path, class: "text-3xl font-bold"
+
+    %div{:width => "33.3%"}
+      %ul.flex.items-center.gap-10
+
+        - if user_signed_in?
+          %li.text-xl.nav-link= link_to "Dashboard", root_path
+          %li.text-xl.nav-link= link_to "Products"
+          %li.text-xl.nav-link= link_to "Profile",  user_index_path
+
+          - if current_user.has_role? :supervisor
+            %li.text-xl.nav-link= link_to "Admin", supervisor_dashboard_path
+
+    %div{:width => "33.3%"}
+      - if user_signed_in?
+        = link_to 'Log Out', destroy_user_session_path, data: { "turbo-method": :delete }, class: "dark-button rounded-lg"

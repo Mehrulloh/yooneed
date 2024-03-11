@@ -1,0 +1,19 @@
+#  PostgreSQL versions 9.3.x and later are supported
+#
+production: &default
+  adapter:  postgresql
+  encoding: unicode
+  database: <%= ENV['RDBMS_DATABASE'] %>
+  username: <%= ENV['RDBMS_USER'] %>
+  password: <%= ENV['RDBMS_PASSWORD'] %>
+  host: <%= ENV['RDBMS_SERVER_NAME'] %>
+  port: <%= ENV['RDBMS_SERVER_PORT'] %>
+  pool: <%= ENV['RDBMS_CONN_POOL'] %>
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+  database: yooneed_test
+
