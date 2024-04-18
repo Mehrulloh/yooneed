@@ -17,7 +17,7 @@
         = f.label :password_confirmation
         %br/
         = f.password_field :password_confirmation, autocomplete: "new-password"
-      .actions
+      .actions.text-center
         = f.submit "Sign up", class: "dark-button"
     .text-center.py-2
       = render "devise/shared/links"

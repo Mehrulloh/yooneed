@@ -1,0 +1,17 @@
+.board.flex-col.mb-4
+  %h2.board-titel Produkten
+  - @products.each do |product|
+    .board-content.mb-2
+      .flex.justify-between.items-center
+        .flex.justify-between.items-center.gap-2
+          %p= product.name
+          %p=product.price
+          %p=product.description
+        .flex.justify-between.items-center.gap-2
+          = link_to "Show", product_path(product), class: "bg-blue-800 text-white px-4 py-2 rounded cursor-pointer my-2"
+          = link_to "Edit", edit_product_path(product), class: "bg-teal-800 text-white px-4 py-2 rounded cursor-pointer my-2"
+          = link_to 'Destroy', product, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "bg-red-800 py-2 px-2 text-white rounded hover:bg-red-700"
+
+= link_to 'New Product', new_product_path, class: "dark-button"
+
+

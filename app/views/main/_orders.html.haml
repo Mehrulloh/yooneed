@@ -1,0 +1,8 @@
+.bg-gray-200.pt-8.pb-4.px-6.rounded-3xl.opacity-1
+  %div.mb-4
+    %h2.text-xl.font-medium.text-left Produktübersicht
+
+  - @products.each do |product|
+    = render Product::Component.new date: product.current_time,
+                                    name:product.name,
+                                    amount:product.price

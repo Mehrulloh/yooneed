@@ -1,0 +1,24 @@
+.flex.items-center.justify-between.px-4.py-2.border.bg-white.rounded-xl.mb-4{"data-controller": "product--component"}
+  .w-full.flex.flex-col.items-start.gap-4{style: "width: 100%;"}
+    %ul.flex.justify-between.items-center.gap-2{style: "width: 80%;"}
+      %li= @date
+      %li Artikel
+      %li Menge
+
+    %ul.flex.justify-between.items-center.gap-2{style: "width: 80%;"}
+      %li= @image
+      %li
+        - if @status
+          Mitarbeiter 1
+        - else
+          = @name
+
+      %li= amount_of_products
+
+  .w-20.flex.justify-center.items-center{style: "width: 20%;"}
+  %button.bg-green-800.text-white.border-1.rounded-full.py-1.px-4{"data-action": "click->product--component#test"}
+    - if @status
+      = @status
+    - else
+      Bestellen
+

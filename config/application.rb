@@ -11,15 +11,11 @@ module ProcurementV1
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.1
     config.eager_load_paths << Rails.root.join("lib")
-    # Common ones are `templates`, `generators`, or `middleware`, for example.
+
     config.autoload_lib(ignore: %w(assets tasks))
 
-    # Configuration for the application, engines, and railties goes here.
-    #
-    # These settings can be overridden in specific environments using the files
-    # in config/environments, which are processed later.
-    #
     config.time_zone = "Berlin"
-    # config.eager_load_paths << Rails.root.join("extras")
+
+    config.active_job.queue_adapter = :sidekiq
   end
 end

@@ -1,9 +1,14 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
+
   devise_for :users
 
   devise_scope :user do
     authenticated :user, ->(user) { user.has_role? :supervisor } do
-      root to: 'supervisor/dashboard#index', as: :supervisor_dashboard
+      get 'dashboard', to: "main#dashboard", as: :supervisor_dashboard
+
+      mount Sidekiq::Web => '/sidekiq'
     end
 
     authenticated :user do
@@ -15,11 +20,16 @@ Rails.application.routes.draw do
     end
   end
 
-  scope module: :supervisor do
-    root to: "dashboard#edit"
+  namespace :profile do
+    resources :user, only: %i[update edit]
   end
 
-  scope module: :profile do
-    resources :user, only: %i[update, index]
+  namespace :supervisor do
+    resources :users
+    resources :products, only: %i[index show update destroy]
   end
+
+  resources :products
+
+  root to: "main#dashboard"
 end

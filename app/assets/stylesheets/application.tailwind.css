@@ -1,4 +1,5 @@
 @import 'navbar.css';
+@import 'product_board.css';
 
 @tailwind base;
 @tailwind components;
@@ -7,15 +8,15 @@
 @layer components {
 
   body {
-    @apply bg-gray-200;
+    @apply bg-gray-100
   }
 
   main {
-    @apply mx-auto min-h-screen mt-10;
+    @apply mx-auto mt-10;
   }
 
   .dark-button {
-    @apply bg-black text-white px-4 py-2 rounded cursor-pointer w-full my-2
+    @apply bg-black text-white px-4 py-2 rounded cursor-pointer my-2
   }
 
   .links-container {
@@ -26,5 +27,15 @@
    @apply inline-flex text-gray-400 focus:outline-none focus:text-gray-500 transition ease-in-out duration-150
   }
 
+  .body-content {
+    @apply bg-gray-300 py-6 w-full;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+  }
+
+  .sidebar {
+    @apply bg-gray-100 h-screen sticky top-0 py-6 px-4
+  }
 }
+
 

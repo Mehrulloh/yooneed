@@ -1,8 +1,7 @@
 class MainController < ApplicationController
-  before_action :authenticate_user!, except: [:index]
+  before_action :authenticate_user!
 
-  def index
+  def dashboard
+    @products = Product.order(:id).decorate
   end
-
-  def dashboard; end
 end

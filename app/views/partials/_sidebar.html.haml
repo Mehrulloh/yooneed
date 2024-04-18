@@ -1,0 +1,20 @@
+%div.h-full.flex.flex-col.justify-between.px-4
+  - if user_signed_in?
+    %div
+      %ul.flex.flex-col.gap-10.text-center
+        %li.text-3xl
+          = link_to dashboard_path do
+            %i.fa-solid.fa-table-columns
+        %li.text-3xl
+          = link_to products_path do
+            %i.fa-solid.fa-box
+
+          - if current_user.has_role? :supervisor
+            %li.text-3xl.text-center
+              = link_to supervisor_users_path do
+                %i.fa-solid.fa-user
+    %div
+      %ul
+        %li.text-3xl.text-center
+          = link_to edit_profile_user_path(current_user) do
+            %i.fa-solid.fa-gear

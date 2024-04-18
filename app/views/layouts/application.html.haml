@@ -11,16 +11,23 @@
 
     = stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload"
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
+    = stylesheet_link_tag "application", "data-turbo-track": "reload"
+
+    %link{rel: "stylesheet", href: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css", integrity: "sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==", crossorigin: "anonymous", referrerpolicy: "no-referrer"}
 
     = javascript_importmap_tags
 
-  %body.py-6.relative
-    = render 'partials/navbar'
+  %body.flex
+    .sidebar
+      = render 'partials/sidebar'
 
-    - if flash.present?
-      - flash.each do |type,data|
-        = render 'partials/notification', type: type, data: data
+    .body-content
+      = render 'partials/navbar'
 
-    %main.container
-      .w-full.h-full
-        = yield
+      - if flash.present?
+        - flash.each do |type,data|
+          -# = render 'partials/notification', type: type, data: data
+          = render Shared::NotificationComponent.new(type:, data:)
+      %main.container
+        .w-full.h-full
+          = yield

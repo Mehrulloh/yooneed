@@ -1,6 +1,10 @@
 class Supervisor::BaseController < ApplicationController
   before_action :require_supervisor!
 
+  def authorize(record, query = nil)
+    super([:supervisor, record], query)
+  end
+
   private
 
   def require_supervisor!

@@ -7,10 +7,13 @@ class User < ActiveRecord::Base
 
   rolify
 
-  enum role: %i[customer supervisor]
+  has_many :products, dependent: :destroy
+
   after_create :assign_default_role
 
-  private
+  def author?(object)
+    object.user == self
+  end
 
   def assign_default_role
     self.add_role(:customer) if self.roles.blank?

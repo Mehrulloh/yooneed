@@ -35,7 +35,6 @@ class Shared::NotificationComponent < ApplicationComponent
     end
   end
 
-
   def icon_color_class
     case @type
 
