@@ -11,6 +11,10 @@ class User < ActiveRecord::Base
 
   after_create :assign_default_role
 
+  def full_name
+    "#{name} #{surname}"
+  end
+
   def author?(object)
     object.user == self
   end

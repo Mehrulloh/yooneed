@@ -8,4 +8,5 @@ class ProductDecorator < Draper::Decorator
   def current_time
     DateTime.now.strftime("%d %B")
   end
+
 end

@@ -14,4 +14,5 @@ class Product < ApplicationRecord
   scope :processing, -> { where(status: :processing) }
   scope :accepted, -> { where(status: :accepted) }
   scope :denied, -> { where(status: :denied) }
+
 end

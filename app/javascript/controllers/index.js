@@ -6,7 +6,8 @@ import NotificationController from './notification_controller';
 import { eagerLoadControllersFrom } from "@hotwired/stimulus-loading";
 
 eagerLoadControllersFrom("controllers", application);
-eagerLoadControllersFrom("components", application);
+// eagerLoadControllersFrom("components", application);
 
 // Register controllers with the application
 application.register("notification", NotificationController);
+application.register("product", ProductController);
