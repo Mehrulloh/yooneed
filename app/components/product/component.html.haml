@@ -1,4 +1,4 @@
-.flex.items-center.justify-between.px-4.py-2.border.bg-white.rounded-xl.mb-4{data: {controller: "product"}}
+.flex.items-center.justify-between.px-4.py-2.border.bg-white.rounded-xl.mb-4{data: {controller: "product", product_id: @id}}
   .w-full.flex.items-center.justify-between.gap-8.py-2
     %div.w-60
       - if @status.nil?
@@ -19,8 +19,8 @@
         %li= @amount_of_products
 
     %div.flex.justify-center.items-center.w-96
-      = link_to !@status ? "Bestellen" : @status, "#", class: "bg-red-800 hover:bg-green-500 text-white rounded-full py-1 px-6 font-light opacity-75",
-        data: { action: "click->product#order", "product-target": "statusProduct"}
+      = link_to !@status ? "Bestellen" : @status, "#", class: "bg-red-800 text-white rounded-full py-1 px-6 font-light opacity-75 hover:bg-green-500 hover:text-black",
+        data: { action: "click->product#order", "product-target": "status" }
 
 
 
