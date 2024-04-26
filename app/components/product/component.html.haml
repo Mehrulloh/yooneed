@@ -4,7 +4,8 @@
       - if @status.nil?
         = image_tag asset_path('wasser.svg'), class: "p-1 rounded-full bg-gray-200", style: "width: 150px;"
       - else
-        %h2.rounded-full.bg-gray-200.text-3xl.flex.items-center.justify-center{style: "width: 70px; height: 70px;"}= @user_name_for
+        %h2.rounded-full.bg-gray-200.text-3xl.flex.items-center.justify-center{style: "width: 70px; height: 70px;"}
+          = @user_shortname
 
     %div.flex.flex-col.items-start.justify-between.gap-8.w-full
       %ul.flex.justify-between.items-center.gap-2.w-full.text-left
@@ -15,7 +16,7 @@
 
       %ul.flex.justify-between.items-center.gap-2.w-full
         %li= @date
-        %li= @status ? @username : @name
+        %li= @status ? @user_fullname : @name
         %li= @amount_of_products
 
     %div.flex.justify-center.items-center.w-96
@@ -23,4 +24,4 @@
         data: { action: "click->product#order", "product-target": "status" }
 
 
-
+f
