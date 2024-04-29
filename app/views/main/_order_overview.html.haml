@@ -3,7 +3,7 @@
     %h2.text-xl.font-medium.text-left Bestellungen
 
   - @products.each do |product|
-    - if product.processing?
+    - if product.accepted?
       = render Product::Component.new date: product.created_at,
                                       name:       product.name,
                                       amount:    product.price,

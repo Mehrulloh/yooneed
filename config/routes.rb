@@ -31,5 +31,14 @@ Rails.application.routes.draw do
 
   resources :products
 
+  resources :main do
+    member do
+      get :accept
+      get :decline
+    end
+  end
+
+
+
   root to: "main#dashboard"
 end
