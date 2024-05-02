@@ -3,8 +3,6 @@ class Product < ApplicationRecord
 
   enum status: { processing: 0, accepted: 1, denied: 2 }
 
-  include Authorship
-
   belongs_to :user
 
   validates :name, presence: true, uniqueness: true

@@ -33,7 +33,7 @@ Rails.application.routes.draw do
 
   resources :main do
     member do
-      get :accept
+      put :accept
       get :decline
     end
   end

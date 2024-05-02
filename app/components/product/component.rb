@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Product::Component < ApplicationComponent
-  attr_reader :date, :name, :amount, :status, :image, :amount_of_products, :username, :user_name_for
+  attr_reader :date, :name, :amount, :status, :image
 
   def initialize(id: nil, date:, name:, amount:, status: nil, image: nil, user_id:)
     @id   = id
@@ -10,23 +10,21 @@ class Product::Component < ApplicationComponent
     @amount = amount
     @status = status
     @image  = image
-    @user_full_name = set_full_name(user_id)
-    @user_short_name = set_short_name
-    @amount_of_products = amount_of_products
+    @user_id = user_id
   end
 
   private
 
-  def set_full_name(user_id)
-    user = User.find_by(id: user_id)
+  def user_full_name
+    user = User.find_by(id: @user_id)
     user ? "#{user.name} #{user.surname}" : nil
   end
 
-  def set_short_name
-    @user_full_name ? @user_full_name.split(' ').map(&:first).join : nil
+  def user_short_name
+    user_full_name ? user_full_name.split(' ').map(&:first).join : nil
   end
 
-  def amount_of_products
+  def products_amount
     case name.downcase
     when "wasser"
       pluralize("Kasten", "Kästen")
@@ -48,7 +46,7 @@ class Product::Component < ApplicationComponent
   end
 
   def status
-    case @status
+    case @status.to_sym
     when :accepted
       "abgeschlossen"
     when :denied

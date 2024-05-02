@@ -1,6 +1,6 @@
 class MainController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_product, only: [:update, :accepted]
+  before_action :set_product, only: [:update, :accept]
 
   def dashboard
     @products = Product.order(:id).decorate
@@ -19,10 +19,11 @@ class MainController < ApplicationController
     end
   end
 
-  def accepted
+  def accept
     @product.status = :accepted
+
     if @product.save
-      redirect_to main_path(@product), notice: "Product status set to accepted."
+      redirect_to main_path(@product)
     else
       redirect_to main_path(@product), alert: "Failed to update product status."
     end

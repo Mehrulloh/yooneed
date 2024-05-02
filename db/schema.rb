@@ -50,7 +50,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_17_111534) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
-    t.integer "status", default: 0
+    t.integer "status"
   end
 
   create_table "roles", force: :cascade do |t|
