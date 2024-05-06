@@ -90,8 +90,9 @@ gem 'sidekiq', '~> 7.1', '>= 7.1.2'
 gem 'devise', '~> 4.8'
 gem 'devise_invitable'
 
-#Rolify
-gem "rolify"
+#AASM
+gem 'aasm', '~> 5.1', '>= 5.1.1'
+
 
 
 

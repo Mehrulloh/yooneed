@@ -1,31 +1,44 @@
 class MainController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_product, only: [:update, :accept]
+  before_action :set_product, only: [:update, :processing, :accept, :denied]
 
   def dashboard
     @products = Product.order(:id).decorate
-    @product = Product.new
   end
 
   def update
     respond_to do |format|
       if @product.update(product_params)
         format.html { redirect_to product_url(@product), notice: "Product was successfully updated." }
-        format.json { render :show, status: :ok, location: @product }
+        format.json { render :dashboard, status: :ok }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { redirect_back fallback_location: dashboard_path, status: :unprocessable_entity }
         format.json { render json: @product.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  def accept
-    @product.status = :accepted
-
-    if @product.save
-      redirect_to main_path(@product)
+  def processing
+    if @product.unsolicited? && @product.processing!
+      redirect_to dashboard_path, alert: "Your order has been processed successfully."
     else
-      redirect_to main_path(@product), alert: "Failed to update product status."
+      redirect_to dashboard_path, alert: "Failed to update product status."
+    end
+  end
+
+  def accept
+    if @product.processing? && @product.accepted!
+      redirect_to dashboard_path, notice: "Product successfully accepted."
+    else
+      redirect_to dashboard_path, alert: "Failed to update product status."
+    end
+  end
+
+  def denied
+    if @product.denied!
+      redirect_back fallback_location: dashboard_path, notice: "Product denied successfully."
+    else
+      redirect_back fallback_location: dashboard_path, alert: "Failed to deny product."
     end
   end
 

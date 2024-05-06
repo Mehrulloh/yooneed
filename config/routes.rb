@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   devise_scope :user do
-    authenticated :user, ->(user) { user.has_role? :supervisor } do
+    authenticated :user, ->(user) { user.role_supervisor? } do
       get 'dashboard', to: "main#dashboard", as: :supervisor_dashboard
 
       mount Sidekiq::Web => '/sidekiq'
@@ -33,12 +33,11 @@ Rails.application.routes.draw do
 
   resources :main do
     member do
+      put :processing
       put :accept
-      get :decline
+      put :denied
     end
   end
-
-
 
   root to: "main#dashboard"
 end

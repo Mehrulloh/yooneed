@@ -3,8 +3,9 @@
     %h2.text-xl.font-medium.text-left Produktübersicht
 
   - @products.each do |product|
-    = render Product::Component.new date: product.current_time,
-                                    name:product.name,
-                                    amount:product.price,
-                                    user_id: product.user_id,
-                                    id: product.id
+    - if product.active?
+      = render Product::Component.new date: product.current_time,
+                                      name: product.name,
+                                      amount: product.amount,
+                                      user_id: current_user.id,
+                                      id: product.id

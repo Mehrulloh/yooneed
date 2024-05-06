@@ -9,7 +9,7 @@
           = link_to products_path do
             %i.fa-solid.fa-box
 
-          - if current_user.has_role? :supervisor
+          - if current_user.role_supervisor?
             %li.text-3xl.text-center
               = link_to supervisor_users_path do
                 %i.fa-solid.fa-user

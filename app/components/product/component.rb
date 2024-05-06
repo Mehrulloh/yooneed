@@ -20,39 +20,11 @@ class Product::Component < ApplicationComponent
     user ? "#{user.name} #{user.surname}" : nil
   end
 
-  def user_short_name
-    user_full_name ? user_full_name.split(' ').map(&:first).join : nil
-  end
-
-  def products_amount
-    case name.downcase
-    when "wasser"
-      pluralize("Kasten", "Kästen")
-    when "zewa"
-      pluralize("Roll", "Rollen")
-    when "milch"
-      pluralize("Packung", "Packungen")
-    else
-      "#{amount} #{name}"
-    end
-  end
-
   def pluralize(singular, pluralize)
     amount > 1 ? "#{amount} #{pluralize}" : "#{amount} #{singular}"
   end
 
   def bg_color
-    @status == "accepted" ? 'green' : (@status == "denied" ? 'red' : 'red')
-  end
-
-  def status
-    case @status.to_sym
-    when :accepted
-      "abgeschlossen"
-    when :denied
-      "abgelehnt"
-    else
-      "in Bearbeitung"
-    end
+    @status == "accepted" ? 'green' : (@status == "denied" ? 'red' : 'gray')
   end
 end

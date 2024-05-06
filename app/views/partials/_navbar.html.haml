@@ -10,7 +10,7 @@
           %li.text-xl.nav-link= link_to "Dashboard", dashboard_path
           %li.text-xl.nav-link= link_to "Products", products_path
 
-          - if current_user.has_role? :supervisor
+          - if current_user.role_supervisor?
             %li.text-xl.nav-link= link_to "Admin", supervisor_users_path
 
     %div.flex.justify-end{style: "width: 33.3%;"}
