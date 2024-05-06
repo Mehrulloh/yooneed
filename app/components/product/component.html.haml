@@ -23,7 +23,6 @@
       - if @status
         %span{class: "text-white rounded-full py-1 px-6 font-light opacity-75 ", style: "background: #{bg_color}"}= status
       - else
-        -# = link_to "Bestellen", processing_main_path(@id), data: { turbo_method: :put }, class: "bg-red-800 text-white rounded-full py-1 px-6 font-light opacity-75 hover:bg-green-500 hover:text-black cursor-pointer"
         = form_for('', url: processing_main_path(@id), method: :put) do |f|
           = f.hidden_field :product_id, value: @id
           %button{class: "bg-red-800 text-white rounded-full py-1 px-6 font-light opacity-75 hover:bg-green-500 hover:text-black cursor-pointer", type: "submit"} Bestellen
