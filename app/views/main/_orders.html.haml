@@ -2,10 +2,11 @@
   %div.mb-4
     %h2.text-xl.font-medium.text-left Produktübersicht
 
+
   - @products.each do |product|
     - if product.active?
-      = render Product::Component.new date: product.current_time,
+      = render Product::Component.new(date: product.created_at,
                                       name: product.name,
                                       amount: product.amount,
                                       user_id: current_user.id,
-                                      id: product.id
+                                      id: product.id).with_variant(:component_order)

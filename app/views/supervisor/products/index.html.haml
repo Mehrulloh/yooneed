@@ -1,0 +1,11 @@
+.bg-gray-200.pt-8.pb-4.px-6.rounded-3xl.opacity-1
+  %div.mb-4
+    %h2.text-xl.font-medium.text-center Produktübersicht
+
+  - @products.each do |product|
+    - if product.active?
+      = render Product::Component.new date: product.current_time,
+                                      name: product.name,
+                                      amount: product.amount,
+                                      id: product.id,
+                                      user_id: product.user_id

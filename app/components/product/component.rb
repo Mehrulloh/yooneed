@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 class Product::Component < ApplicationComponent
-  attr_reader :date, :name, :amount, :status, :image
+  attr_reader :id, :date, :name, :amount, :status, :image, :user_id
 
-  def initialize(id: nil, date:, name:, amount:, status: nil, image: nil, user_id:)
-    @id   = id
-    @date = date
-    @name = name
+  def initialize(id: nil, date:, name:, amount:, status: nil, image: nil, user_id: nil)
+    @id     = id
+    @date   = date
+    @name   = name
     @amount = amount
     @status = status
     @image  = image

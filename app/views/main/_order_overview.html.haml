@@ -3,9 +3,9 @@
     %h2.text-xl.font-medium.text-left Bestellungen
 
   - @products.each do |product|
-    - if product.status == "processing"
-      = render Product::Component.new date: product.created_at,
+    - if product.processing?
+      = render Product::Component.new(date: product.created_at,
                                       name:      product.name,
                                       amount:    product.amount,
                                       status:    product.status_name,
-                                      user_id: current_user.id
+                                      user_id: current_user.id).with_variant(:order)

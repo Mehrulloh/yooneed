@@ -14,6 +14,8 @@ module ProcurementV1
 
     config.autoload_lib(ignore: %w(assets tasks))
 
+    Rails.application.config.paths.add "app/components", eager_load: true, glob: "*"
+
     config.time_zone = "Berlin"
 
     config.active_job.queue_adapter = :sidekiq

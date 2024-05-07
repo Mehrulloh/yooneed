@@ -11,7 +11,7 @@
           %li.text-xl.nav-link= link_to "Products", products_path
 
           - if current_user.role_supervisor?
-            %li.text-xl.nav-link= link_to "Admin", supervisor_users_path
+            %li.text-xl.nav-link= link_to "Admin", supervisor_products_path
 
     %div.flex.justify-end{style: "width: 33.3%;"}
       - if user_signed_in?

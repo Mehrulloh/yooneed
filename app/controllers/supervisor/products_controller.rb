@@ -1,9 +1,12 @@
-class MainController < ApplicationController
+class Supervisor::ProductsController < Supervisor::BaseController
   before_action :authenticate_user!
-  before_action :set_product, only: [:update, :processing]
+  before_action :require_supervisor!
 
-  def dashboard
-    @products = Product.order(:id).decorate
+  before_action :set_product, only: %i[update accept denied]
+
+
+  def index
+    @products = Product.all.decorate
   end
 
   def update
@@ -18,11 +21,19 @@ class MainController < ApplicationController
     end
   end
 
-  def processing
-    if @product.unsolicited? && @product.processing!
-      redirect_to dashboard_path, alert: "Your orders has been processed successfully."
+  def accept
+    if @product.processing? && @product.accepted!
+      redirect_to dashboard_path, notice: "Product successfully accepted."
     else
       redirect_to dashboard_path, alert: "Failed to update product status."
+    end
+  end
+
+  def denied
+    if @product.denied!
+      redirect_back fallback_location: dashboard_path, notice: "Product denied successfully."
+    else
+      redirect_back fallback_location: dashboard_path, alert: "Failed to deny product."
     end
   end
 
@@ -34,6 +45,6 @@ class MainController < ApplicationController
   end
 
   def product_params
-    params.require(:product).permit(:status, :id).merge(user: current_user)
+    params.require(:product).permit(:id).merge(user: current_user)
   end
 end

@@ -26,7 +26,7 @@ Rails.application.routes.draw do
 
   namespace :supervisor do
     resources :users
-    resources :products, only: %i[index show update destroy]
+    resources :products, only: %i[index update accept denied]
   end
 
   resources :products
