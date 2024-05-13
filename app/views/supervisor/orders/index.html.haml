@@ -1,0 +1,11 @@
+.bg-gray-200.pt-8.pb-4.px-6.rounded-3xl.opacity-1
+  %div.mb-4
+    %h2.text-xl.font-medium.text-center Produktübersicht
+
+  - @orders.each do |order|
+    - if order.processing?
+      = render Supervisor::Component.new  id:           order.id,
+                                          date: order.created_at,
+                                          name:       order.name,
+                                          amount:   order.amount,
+                                          user_id: order.user_id
