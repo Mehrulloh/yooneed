@@ -1,20 +1,14 @@
 class ProductsController < ApplicationController
   before_action :authenticate_user!,           except: %i[index]
   before_action :set_product, only: %i[show edit update destroy]
-  before_action :authorize_product!
-  after_action  :verify_authorized
+  before_action :authorize_product!, only: %i[edit update destroy]
+  after_action  :verify_authorized, only: %i[edit update destroy]
 
   def index
     @products = current_user.products.decorate
   end
 
-  def show; end
-
   def edit; end
-
-  def new
-    @product = Product.new
-  end
 
   def create
     @product = current_user.products.build(product_params)
@@ -42,7 +36,6 @@ class ProductsController < ApplicationController
     end
   end
 
-  # DELETE /products/1 or /products/1.json
   def destroy
     @product.destroy!
 
@@ -58,7 +51,7 @@ class ProductsController < ApplicationController
     end
 
     def product_params
-      params.require(:product).permit(:name, :description, :price, :image).merge(user: current_user)
+      params.require(:product).permit(:name, :description, :amount, :active, :image).merge(user: current_user)
     end
 
   def authorize_product!

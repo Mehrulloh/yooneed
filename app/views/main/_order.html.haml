@@ -1,11 +1,10 @@
 .bg-gray-200.pt-8.pb-4.px-6.rounded-3xl.opacity-2
   %div.mb-4
     %h2.text-xl.font-medium.text-left Bestellungen
-  -#
-  -# - @products.each do |product|
-  -#   - if product.processing?
-  -#     = render Product::Component.new(date: product.created_at,
-  -#                                     name:      product.name,
-  -#                                     amount:    product.amount,
-  -#                                     status:    product.status_name,
-  -#                                     user_id: current_user.id)
+
+  - @orders.each do |order|
+    - if order.processing?
+      = render Order::Component.new   date: order.created_at,
+                                      name:       order.name,
+                                      amount:    order.amount,
+                                      status:    order.status

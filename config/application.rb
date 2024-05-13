@@ -10,11 +10,12 @@ module ProcurementV1
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.1
+
     config.eager_load_paths << Rails.root.join("lib")
 
     config.autoload_lib(ignore: %w(assets tasks))
 
-    Rails.application.config.paths.add "app/components", eager_load: true, glob: "*"
+    # Rails.application.config.paths.add "app/components", eager_load: true, glob: "*"
 
     config.time_zone = "Berlin"
 

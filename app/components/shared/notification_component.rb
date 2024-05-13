@@ -15,7 +15,6 @@ class Shared::NotificationComponent < ApplicationComponent
 
   def prepare_data(data)
     case data
-
     when Hash
       data
     else
@@ -25,7 +24,6 @@ class Shared::NotificationComponent < ApplicationComponent
 
   def icon_class
     case @type
-
     when "success"
       "fa-check-square"
     when "error"
@@ -37,7 +35,6 @@ class Shared::NotificationComponent < ApplicationComponent
 
   def icon_color_class
     case @type
-
     when "success"
       "text-green-400"
     when "error"

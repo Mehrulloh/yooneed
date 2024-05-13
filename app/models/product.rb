@@ -7,6 +7,4 @@ class Product < ApplicationRecord
   validates :amount, presence: true
 
   scope :active?, -> { where(active: true) }
-
-  scope :processing, -> { where(status: :processing) }
 end

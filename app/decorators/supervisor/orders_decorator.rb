@@ -1,4 +1,4 @@
-class Supervisor::OrderDecorator < Draper::Decorator
+class Supervisor::OrdersDecorator < Draper::Decorator
   delegate_all
 
   def created_at

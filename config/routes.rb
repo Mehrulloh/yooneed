@@ -25,19 +25,17 @@ Rails.application.routes.draw do
   end
 
   namespace :supervisor do
-    resources :users
-    resources :products, only: %i[index update accept denied]
+    resources :orders
+  end
+
+  resources :orders, only: %i[create] do
+    member do
+      post :accept
+      post :deny
+    end
   end
 
   resources :products
-
-  resources :main do
-    member do
-      put :processing
-      put :accept
-      put :denied
-    end
-  end
 
   root to: "main#dashboard"
 end

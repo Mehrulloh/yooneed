@@ -1,28 +1,23 @@
-.flex.items-center.justify-between.px-4.py-2.border.bg-white.rounded-xl.mb-4{data: {controller: "product", product_id: @id, product_status: @status }}
+.flex.items-center.justify-between.px-4.py-2.border.bg-white.rounded-xl.mb-4
   .w-full.flex.items-center.justify-between.gap-8.py-2
     %div.w-60
-      - if @status.nil?
-        = image_tag asset_path('wasser.svg'), class: "p-1 rounded-full bg-gray-200", style: "width: 150px;"
-      - else
-        %h2.rounded-full.bg-gray-200.text-3xl.flex.items-center.justify-center{style: "width: 70px; height: 70px;"}
-          = 'AA'
+      = image_tag asset_path('wasser.svg'), class: "p-1 rounded-full bg-gray-200", style: "width: 150px;"
 
     %div.flex.flex-col.items-start.justify-between.gap-8.w-full
       %ul.flex.justify-between.items-center.gap-2.w-full.text-left
         %li.text-md.font-medium Datum
-        - unless @status
-          %li.text-md.font-medium Artikel
+        %li.text-md.font-medium Artikel
         %li.text-md.font-medium Menge
 
       %ul.flex.justify-between.items-center.gap-2.w-full
-        %li= @date
-        %li= @name
-        %li menge
+        %li= @product.created_at
+        %li= @product.name
+        %li= @product.amount
 
     %div.flex.justify-center.items-center.w-96
-      - if @status
-        %span{class: "text-white rounded-full py-1 px-6 font-light opacity-75 ", style: "background: #{bg_color}"}= @status
-      - else
-        = form_for('', url: processing_main_path(@id), method: :put) do |f|
-          = f.hidden_field :product_id, value: @id
-          %button{class: "bg-red-800 text-white rounded-full py-1 px-6 font-light opacity-75 hover:bg-green-500 hover:text-black cursor-pointer", type: "submit"} Bestellen
+    = form_with model: Order.new, data: { turbo_method: false } do |f|
+      = f.hidden_field :id, value: @product.id
+      = f.hidden_field :name, value: @product.name
+      = f.hidden_field :amount, value: @product.amount
+      = f.hidden_field :status, value: @product.status
+      = f.submit "Bestellen", class: "bg-red-800 text-white rounded-full py-1 px-6 font-light opacity-75 hover:bg-green-500 hover:text-black cursor-pointer"

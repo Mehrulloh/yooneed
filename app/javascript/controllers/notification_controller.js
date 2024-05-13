@@ -19,7 +19,7 @@ export default class extends Controller {
        }
 
        setTimeout(() => {
-           this.close()
+           // this.close()
        },3000)
 
     }
