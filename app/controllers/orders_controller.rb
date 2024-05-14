@@ -1,30 +1,23 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_order, only: %i[processing accept deny]
+  before_action :set_product
+  before_action :set_order, except: [:create]
 
   def create
-    @order = Order.new order_params
+    @order = @product.orders.new(order_params)
 
-    if @order.save
-      redirect_back fallback_location: root_path, alert: "Your orders has been processed successfully."
-    elsif @order.present?
-      redirect_back fallback_location: root_path, alert: "#{@order.name} exists already!!!"
-    end
-  end
-
-  def processing
-    if @order.processing!
-      redirect_back fallback_location: root_path, alert: "Your orders has been processed successfully."
+    if @order.save && @order.processing!
+      redirect_back fallback_location: root_path, alert: "Your order has been processed successfully."
     else
-      redirect_back fallback_location: root_path, alert: "Failed to update orders status."
+      redirect_back fallback_location: root_path, alert: "#{@order.name} wurde schon bestellt!"
     end
   end
 
   def accept
-    if @order.processing? && @order.accepted!
-      redirect_back fallback_location: root_path, notice: "Product successfully accepted."
+      if @order.save && @order.accepted!
+        redirect_back fallback_location: root_path, notice: "Order successfully accepted."
     else
-      redirect_back fallback_location: root_path, alert: "Failed to update orders status."
+      redirect_back fallback_location: root_path, alert: "Failed to update order status."
     end
   end
 
@@ -32,17 +25,21 @@ class OrdersController < ApplicationController
     if @order.denied!
       redirect_back fallback_location: root_path, notice: "Order denied successfully."
     else
-      redirect_back fallback_location: root_path, alert: "Failed to deny orders."
+      redirect_back fallback_location: root_path, alert: "Failed to deny order."
     end
   end
 
   private
+
+  def set_product
+    @product = Product.find(params[:product_id])
+  end
 
   def set_order
     @order = Order.find(params[:id])
   end
 
   def order_params
-    params.require(:order).permit(:id, :name, :amount, :user_id, :status)
+    params.require(:order).permit(:product_id, :name, :amount).merge(user: current_user)
   end
 end

@@ -15,9 +15,8 @@
         %li= @product.amount
 
     %div.flex.justify-center.items-center.w-96
-    = form_with model: Order.new, data: { turbo_method: false } do |f|
-      = f.hidden_field :id, value: @product.id
-      = f.hidden_field :name, value: @product.name
-      = f.hidden_field :amount, value: @product.amount
-      = f.hidden_field :status, value: @product.status
-      = f.submit "Bestellen", class: "bg-red-800 text-white rounded-full py-1 px-6 font-light opacity-75 hover:bg-green-500 hover:text-black cursor-pointer"
+      = form_for :order, url: orders_path(product_id: @product.id), data: { turbo: false } do |f|
+        = f.hidden_field :product_id, value: @product.id
+        = f.hidden_field :name, value: @product.name
+        = f.hidden_field :amount, value: @product.amount
+        = f.submit "Bestellen", class: "bg-red-800 text-white rounded-full py-1 px-6 font-light opacity-75 hover:bg-green-500 hover:text-black cursor-pointer"

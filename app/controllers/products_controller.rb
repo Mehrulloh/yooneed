@@ -5,13 +5,13 @@ class ProductsController < ApplicationController
   after_action  :verify_authorized, only: %i[edit update destroy]
 
   def index
-    @products = current_user.products.decorate
+    @products = Product.all.decorate
   end
 
   def edit; end
 
   def create
-    @product = current_user.products.build(product_params)
+    @product = Product.new(product_params)
 
     respond_to do |format|
       if @product.save
@@ -27,8 +27,8 @@ class ProductsController < ApplicationController
   def update
     respond_to do |format|
       if @product.update(product_params)
-        format.html { redirect_to product_url(@product), notice: "Product was successfully updated." }
-        format.json { render :show, status: :ok, location: @product }
+        format.html { redirect_to root_path, notice: "Product was successfully updated." }
+        # format.json { render :show, status: :ok, location: @product }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @product.errors, status: :unprocessable_entity }
@@ -51,7 +51,7 @@ class ProductsController < ApplicationController
     end
 
     def product_params
-      params.require(:product).permit(:name, :description, :amount, :active, :image).merge(user: current_user)
+      params.require(:product).permit(:name, :description, :amount, :active, :image)
     end
 
   def authorize_product!

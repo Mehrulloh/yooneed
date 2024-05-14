@@ -3,6 +3,6 @@ class MainController < ApplicationController
 
   def dashboard
     @products = Product.order(:id).decorate
-    @orders = Order.all.decorate
+    @orders = Order.joins(:product).decorate
   end
 end

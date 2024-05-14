@@ -16,9 +16,5 @@
         %li= amount
 
     %div.flex.justify-center.items-center.w-96
-      - if status == :processing
-        = form_for('', url: accept_order_path(id: id), method: :post) do |f|
-          = f.submit "Accept", class: "bg-red-800 text-white rounded-full py-1 px-6 font-light opacity-75 hover:bg-green-500 hover:text-black cursor-pointer"
-    -#
-    -# = form_for('', url: accept_order_path(id: @orders.id), method: :post) do |f|
-    -#   = f.submit "Bestellen", class: "bg-red-800 text-white rounded-full py-1 px-6 font-light opacity-75 hover:bg-green-500 hover:text-black cursor-pointer"
+      = link_to "Accept", accept_order_path(id), method: :post, data: { turbo_method: :post }, class: "bg-green-700 text-white rounded-full py-1 px-6 font-light opacity-75 hover:bg-green-500 hover:text-black cursor-pointer"
+      = link_to "Deny", deny_order_path(id), method: :post, data: { turbo_method: :post }, class: "bg-red-800 text-white rounded-full py-1 px-8 ml-2 font-light opacity-75 hover:bg-red-500 hover:text-black cursor-pointer"

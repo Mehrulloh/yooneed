@@ -28,8 +28,9 @@ Rails.application.routes.draw do
     resources :orders
   end
 
-  resources :orders, only: %i[create] do
+  resources :orders, only: [:create] do
     member do
+      post :processing
       post :accept
       post :deny
     end

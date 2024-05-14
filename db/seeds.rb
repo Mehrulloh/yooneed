@@ -11,5 +11,4 @@ end
 product = Product.find_or_create_by!(name: "Wasser") do |product|
   product.active = true
   product.amount = 1
-  product.user = user
 end

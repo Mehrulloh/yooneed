@@ -1,7 +1,6 @@
 class Product < ApplicationRecord
-  include StatusTrackable
-
   has_one_attached :image
+  has_many :orders, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true
   validates :amount, presence: true

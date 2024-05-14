@@ -28,7 +28,7 @@
   }
 
   .body-content {
-    @apply bg-gray-300 py-6 w-full flex justify-center;
+    @apply bg-gray-300 py-6 w-full;
     border-top-left-radius: 30px;
     border-bottom-left-radius: 30px;
   }

@@ -4,8 +4,7 @@ class CreateProducts < ActiveRecord::Migration[7.1]
       t.string :name
       t.text :description
       t.integer :amount
-      t.boolean :active, default: false
-      t.integer :status, null: true, default: nil
+      t.boolean :active, default: true
 
       t.timestamps
     end
