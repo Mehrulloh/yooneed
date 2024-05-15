@@ -9,3 +9,20 @@
 .board-titel {
   @apply text-2xl font-bold text-center uppercase
 }
+
+.order_list {
+  overflow-y: scroll;
+  height: 260px;
+}
+
+.modal-wrapper {
+  @apply fixed z-10 p-2 border shadow-cyan-500/50;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.modal-header {
+  /*@apply */
+}
+

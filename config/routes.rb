@@ -30,13 +30,16 @@ Rails.application.routes.draw do
 
   resources :orders, only: [:create] do
     member do
-      post :processing
       post :accept
       post :deny
     end
   end
 
-  resources :products
+  resources :products do
+    member do
+      post :order
+    end
+  end
 
   root to: "main#dashboard"
 end

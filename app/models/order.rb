@@ -4,7 +4,6 @@ class Order < ApplicationRecord
   belongs_to :user
   belongs_to :product
 
-  validates :name, presence: true, uniqueness: { scope: :user_id }
   validates :amount, presence: true
   validates :user_id, presence: true
   validates :product_id, presence: true
@@ -13,4 +12,6 @@ class Order < ApplicationRecord
   scope :accepted, -> { where(status: :accepted) }
   scope :denied, -> { where(status: :denied) }
 
+  scope :completed, -> { where.not(status: :processing) }
+  scope :uncompleted, -> { where(status: :processing) }
 end

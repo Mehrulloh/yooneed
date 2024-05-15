@@ -15,6 +15,8 @@ module ProcurementV1
 
     config.autoload_lib(ignore: %w(assets tasks))
 
+    config.eager_load_paths << Rails.root.join("app/components")
+
     # Rails.application.config.paths.add "app/components", eager_load: true, glob: "*"
 
     config.time_zone = "Berlin"

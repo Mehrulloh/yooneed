@@ -6,4 +6,7 @@ class Product < ApplicationRecord
   validates :amount, presence: true
 
   scope :active?, -> { where(active: true) }
+
+  enum packing_type: { piece: 0, boxes: 1, pack: 2 }
 end
+

@@ -1,20 +1,13 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_product
+  before_action :set_product, only: [:create]
   before_action :set_order, except: [:create]
 
   def create
-    @order = @product.orders.new(order_params)
-
-    if @order.save && @order.processing!
-      redirect_back fallback_location: root_path, alert: "Your order has been processed successfully."
-    else
-      redirect_back fallback_location: root_path, alert: "#{@order.name} wurde schon bestellt!"
-    end
   end
 
   def accept
-      if @order.save && @order.accepted!
+    if @order.accepted!
         redirect_back fallback_location: root_path, notice: "Order successfully accepted."
     else
       redirect_back fallback_location: root_path, alert: "Failed to update order status."
@@ -22,7 +15,7 @@ class OrdersController < ApplicationController
   end
 
   def deny
-    if @order.denied!
+     if @order.denied!
       redirect_back fallback_location: root_path, notice: "Order denied successfully."
     else
       redirect_back fallback_location: root_path, alert: "Failed to deny order."
@@ -36,6 +29,7 @@ class OrdersController < ApplicationController
   end
 
   def set_order
+    puts params
     @order = Order.find(params[:id])
   end
 

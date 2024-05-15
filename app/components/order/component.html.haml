@@ -11,10 +11,10 @@
         %li.text-md.font-medium Menge
 
       %ul.flex.justify-between.items-center.gap-2.w-full
-        %li= date
+        %li= @order.created_at
         %li= user_full_name
-        %li Menge
+        %li= @order.amount
 
     %div.flex.justify-center.items-center.w-96
-      %span{class: "text-white rounded-full py-1 px-6 font-light opacity-75 ", style: "background: #{bg_color}"}
-        = status
+      %span{class: "text-white rounded-full py-1 px-6 font-light opacity-75 ", style: "background: #{status_color}"}
+        = @order.status

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 
-class Shared::NotificationComponent < ApplicationComponent
+class Shared::Notification::Component < ApplicationComponent
   attr_reader :type, :data
 
   def initialize(type:, data:)
