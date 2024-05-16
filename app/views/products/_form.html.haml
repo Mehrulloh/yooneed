@@ -9,14 +9,11 @@
     = f.label :name
     = f.text_field :name, class: "w-96"
   .field.mb-2.flex.flex-col
-    = f.label :Desc
+    = f.label :description
     = f.text_area :description, class: "w-96"
   .field.mb-2.flex.flex-col
-    = f.label :Menge
-    = f.number_field :amount, class: "w-96"
-  .field.mb-2.flex.flex-col
-    = f.label :aasm_state
-    = f.check_box :aasm_state, "#{@product.class}_aasm_state"
+    = f.label :packing_type
+    = f.select :packing_type, options_for_select(Product.packing_types.map { |key, _| [key.humanize.capitalize, key]}, @product.packing_type), class: 'text-light'
   .field.mb-2.flex.flex-col
     = f.label :image
     = f.file_field :image, class: "w-96 mt-2"

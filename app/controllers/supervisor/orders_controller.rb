@@ -3,6 +3,6 @@ class Supervisor::OrdersController < Supervisor::BaseController
   before_action :require_supervisor!
 
   def index
-    @orders = Order.all.decorate
+    @orders = Order.where(status: :processing).decorate
   end
 end

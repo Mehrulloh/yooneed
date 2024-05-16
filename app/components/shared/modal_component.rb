@@ -6,10 +6,10 @@ class Shared::ModalComponent < ViewComponent::Base
   end
 
   def call
-    content_tag :div, class: 'modal-wrapper text-center hidden', data: { controller:  "modal" } do
-      content_tag :div, class: 'modal-content w-2/4' do
+    content_tag :div, class: 'modal-wrapper shadow-2xl rounded-lg', data: { controller:  "modal" } do
+      content_tag :div, class: 'modal-content' do
         concat header_component
-        concat content_tag :div, content
+        concat content_tag :div, content, class: "py-2 px-4"
       end
     end
   end
@@ -17,8 +17,9 @@ class Shared::ModalComponent < ViewComponent::Base
   private
 
   def header_component
-    content_tag :div, class: 'modal-header bg-slate-300' do
-      concat content_tag(:h1, title, class: "text-lg font-white mb-2 font-bold") if title.present?
+    content_tag :div, class: 'modal-header rounded-t-lg flex justify-between px-4' do
+      concat content_tag(:h1, title, class: "text-lg font-white font-bold")
+      concat content_tag(:span, 'x', class: "text-lg font-white font-bold cursor-pointer", data: {action: "click->modal#close"})
     end
   end
 end

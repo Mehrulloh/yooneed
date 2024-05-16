@@ -1,20 +1,22 @@
 .flex.items-center.justify-between.px-4.py-2.border.bg-white.rounded-xl.mb-4
   .w-full.flex.items-center.justify-between.gap-8.py-2
-    %div.w-60
-      %h2.rounded-full.bg-gray-200.text-3xl.flex.items-center.justify-center{style: "width: 70px; height: 70px;"}
+    %div.w-48
+      %h2.rounded-full.bg-gray-200.text-3xl.flex.items-center.justify-center{style: "width: 80px; height: 80px;"}
         = "AA"
 
     %div.flex.flex-col.items-start.justify-between.gap-8.w-full
-      %ul.flex.justify-between.items-center.gap-2.w-full.text-left
+      %ul.flex.justify-between.items-center.gap-2.w-full
         %li.text-md.font-medium Datum
         %li.text-md.font-medium User
+        %li.text-md.font-medium Artikel
         %li.text-md.font-medium Menge
 
       %ul.flex.justify-between.items-center.gap-2.w-full
-        %li= date
+        %li= @order.created_at
         %li= user_full_name
-        %li= amount
+        %li= @order.name
+        %li= @order.packing
 
-    %div.flex.justify-center.items-center.w-96
-      = link_to "Accept", accept_order_path(id), data: { turbo_method: :post }, class: "bg-teal-800 text-white rounded-full py-1 px-6 font-light opacity-75 hover:bg-green-500 hover:text-black cursor-pointer"
-      = link_to "Deny", deny_order_path(id), data: { turbo_method: :post }, class: "bg-red-800 text-white rounded-full py-1 px-6 font-light opacity-75 hover:bg-red-500 hover:text-black cursor-pointer"
+    %div.flex.justify-center.items-center.w-96.gap-2
+      = link_to "Accept", accept_order_path(@order.id), data: { turbo_method: :post }, class: "product-btn bg-teal-800 hover:bg-green-600 hover:text-black cursor-pointer"
+      = link_to "Deny", deny_order_path(@order.id), data: { turbo_method: :post }, class: "product-btn bg-red-800 hover:bg-red-600 hover:text-black cursor-pointer"

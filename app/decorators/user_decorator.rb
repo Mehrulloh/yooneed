@@ -12,6 +12,6 @@ class UserDecorator < ApplicationDecorator
   end
 
   def short_name
-    !name.nil? ? "#{name[0]} #{surname[0]}" : full_name
+    !name.nil? ? "#{name[0]}#{surname[0]}" : full_name
   end
 end

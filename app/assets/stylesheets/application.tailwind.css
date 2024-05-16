@@ -19,6 +19,10 @@
     @apply bg-black text-white px-4 py-2 rounded cursor-pointer my-2
   }
 
+  .product-btn {
+    @apply text-white rounded-full py-1 px-6 font-light
+  }
+
   .links-container {
     @apply text-center py-2 text-red-600
   }

@@ -10,6 +10,10 @@ class ProductsController < ApplicationController
 
   def edit; end
 
+  def new
+    @product = Product.new
+  end
+
   def create
     @product = Product.new(product_params)
 
@@ -28,8 +32,9 @@ class ProductsController < ApplicationController
     respond_to do |format|
       if @product.update(product_params)
         format.html { redirect_to root_path, notice: "Product was successfully updated." }
-        # format.json { render :show, status: :ok, location: @product }
       else
+        puts "Debugging: #{@product_errors}"
+        puts "Debugging: #{params.inspect}"
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @product.errors, status: :unprocessable_entity }
       end
@@ -66,7 +71,7 @@ class ProductsController < ApplicationController
     end
 
     def product_params
-      params.require(:product).permit(:name, :description, :amount, :active, :image)
+      params.require(:product).permit(:name, :description, :packing_type, :active, :image)
     end
 
   def authorize_product!
