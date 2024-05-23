@@ -1,4 +1,7 @@
 class Shared::ModalComponent < ViewComponent::Base
+  include Turbo::FramesHelper
+  include Turbo::StreamsHelper
+
   attr_reader :title
 
   def initialize(title: "title")
@@ -6,10 +9,12 @@ class Shared::ModalComponent < ViewComponent::Base
   end
 
   def call
-    content_tag :div, class: 'modal-wrapper shadow-2xl rounded-lg', data: { controller:  "modal" } do
-      content_tag :div, class: 'modal-content' do
-        concat header_component
-        concat content_tag :div, content, class: "py-2 px-4"
+    turbo_frame_tag "modal" do
+      content_tag :div, class: 'modal-wrapper shadow-2xl rounded-lg', data: { controller:  "modal" } do
+        content_tag :div, class: 'modal-content', data: {modal_target: "modal"} do
+          concat header_component
+          concat content_tag :div, content, class: "py-2 px-4"
+        end
       end
     end
   end

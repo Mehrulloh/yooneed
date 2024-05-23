@@ -1,0 +1,10 @@
+= modal title: "Menge auswählen" do
+  = form_with model: @order do |f|
+    .field.mb-2.flex.flex-col.text-black
+      = f.hidden_field :product_id, value: @product.id
+      = f.hidden_field :name, value: @product.name
+      = f.label :amount, class: "text-black mb-2"
+      = f.number_field :amount, class: "text-black mb-2"
+    .field.flex.justify-center.mt-10.gap-2
+      = f.submit 'Save', class: 'product-btn bg-red-600 mt-2 w-48 cursor-pointer hover:bg-red-700'
+      = link_to 'Back', products_path, class: "product-btn bg-red-600 mt-2 w-48 cursor-pointer hover:bg-red-700 text-center"

@@ -6,8 +6,11 @@ class OrderDecorator < Draper::Decorator
   end
 
   def username(short: true)
+    user = context[:current_user]
+
     short ? user.decorate.short_name : user.decorate.full_name
   end
+
   def created_at
     object.created_at.strftime("%d %B")
   end
@@ -32,10 +35,6 @@ class OrderDecorator < Draper::Decorator
   end
 
   private
-
-  def user
-    @user ||= User.find_by(id: object.user_id)
-  end
 
   def amount
     object.amount

@@ -1,15 +1,26 @@
-.board.flex-col.mb-4
-  %h2.board-titel Produkten
-  - @products.each do |product|
-    .board-content.mb-2
-      .flex.justify-between.items-center
-        .flex.justify-between.items-center.gap-2
-          %p= product.name
-          %p=product.amount
-          %p=product.description
-        .flex.justify-between.items-center.gap-2
-          = link_to "Show", product_path(product), class: "bg-blue-800 text-white px-4 py-2 rounded cursor-pointer my-2"
-          = link_to "Edit", edit_product_path(product), class: "bg-teal-800 text-white px-4 py-2 rounded cursor-pointer my-2"
-          = link_to 'Destroy', product, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "bg-red-800 py-2 px-2 text-white rounded hover:bg-red-700"
+%div.flex.flex-col.gap-2
+  %h2.text-2xl.font-bold.text-center.uppercase Produkten
+  .bg-gray-200.pt-8.pb-4.px-6.rounded-3xl.opacity-1.mb-4
+    - @products.each do |product|
+      .flex.items-center.justify-between.px-4.py-2.border.bg-white.rounded-xl.mb-4
+        .w-full.flex.items-center.justify-between.gap-8.py-2
+          %div.w-60
+            = image_tag asset_path('wasser.svg'), class: "p-1 rounded-full bg-gray-200", style: "width: 100px;"
 
-= link_to 'New Product', new_product_path, class: "dark-button"
+          %div.flex.flex-col.items-start.justify-between.gap-8.w-full
+            %ul.flex.justify-between.items-center.gap-2.w-full.text-left
+              %li.text-md.font-medium Datum
+              %li.text-md.font-medium Artikel
+              %li.text-md.font-medium Menge
+
+            %ul.flex.justify-between.items-center.gap-2.w-full
+              %li= product.created_at
+              %li= product.name
+              %li= product.packing
+
+          %div.flex.justify-center.items-center.w-96.gap-2
+            = link_to "Show", product_path(product.id), class: "bg-blue-800 product-btn hover:bg-blue-700"
+            = link_to "Edit", edit_product_path(product.id), class: "bg-teal-800 product-btn hover:bg-teal-700"
+            = link_to 'Destroy', product, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "bg-red-800 product-btn hover:bg-red-700"
+
+= link_to 'New Product', new_product_path, class: "product-btn bg-blue-900 product-btn hover:bg-blue-700"

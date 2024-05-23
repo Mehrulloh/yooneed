@@ -1,12 +1,3 @@
 %h1.mb-2 Editing product
 
 = render "form"
--#
--# = modal title: "Menge auswahlen" do
--#   = form_for @product do |f|
--#     .field.mb-2.flex.flex-col.text-black
--#       = f.label :packing_type, class: "text-black mb-2"
--#       = f.select :packing_type, options_for_select(Product.packing_types.map { |key, _| [key.humanize.capitalize, key]}, selected: @product.packing_type)
--#     .field.flex.justify-center.mt-10.gap-2
--#       = f.submit 'Speichern', class: 'product-btn bg-red-600 mt-2 w-48 cursor-pointer hover:bg-red-700'
--#       = link_to 'Back', products_path, class: "product-btn bg-red-600 mt-2 w-48 cursor-pointer hover:bg-red-700 text-center"

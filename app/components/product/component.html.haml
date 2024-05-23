@@ -1,7 +1,7 @@
 .flex.items-center.justify-between.px-4.py-2.border.bg-white.rounded-xl.mb-4
   .w-full.flex.items-center.justify-between.gap-8.py-2
     %div.w-60
-      = image_tag asset_path('wasser.svg'), class: "p-1 rounded-full bg-gray-200", style: "width: 150px;"
+      = image_tag asset_path('wasser.svg'), class: "p-1 rounded-full bg-gray-200", style: "width: 100px;"
 
     %div.flex.flex-col.items-start.justify-between.gap-8.w-full
       %ul.flex.justify-between.items-center.gap-2.w-full.text-left
@@ -15,8 +15,4 @@
         %li= @product.packing
 
     %div.flex.justify-center.items-center.w-96
-      = form_for :order, url: order_product_path(@product.id) do |f|
-        = f.hidden_field :product_id, value: @product.id
-        = f.hidden_field :name, value: @product.name
-        = f.hidden_field :amount, value: @product.amount
-        = f.submit "Bestellen", class: "bg-amber-700 hover:bg-amber-600 hover:text-black cursor-pointer product-btn"
+      = link_to 'Bestellen', new_order_path(product_id: @product.id), data: { turbo_frame: "modal" }, class: "bg-amber-700 hover:bg-amber-600 hover:text-black cursor-pointer product-btn"

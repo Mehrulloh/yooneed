@@ -1,0 +1,2 @@
+= turbo_stream.prepend "orders" do
+  = render Order::Component.new(order: @orders, current_user: current_user)

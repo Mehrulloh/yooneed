@@ -3,4 +3,4 @@
     %h2.text-xl.font-medium.text-left.mb-2 Meldungen
 
   %div.overflow-y-scroll.h-64
-    = render Order::Component.with_collection(@completed)
+    = render Order::Component.with_collection(@completed, current_user: current_user)

@@ -2,7 +2,7 @@ class Order < ApplicationRecord
   include StatusTrackable
 
   belongs_to :user
-  belongs_to :product
+  belongs_to :product, required: true
 
   validates :amount, presence: true
   validates :user_id, presence: true

@@ -3,9 +3,22 @@ class MainController < ApplicationController
   before_action :authenticate_user!
 
   def dashboard
-    @products = Product.order(:id).decorate
+    load_products
+    load_completed_orders
+    load_uncompleted_orders
+  end
 
-    @completed = Order.completed.decorate
-    @uncompleted = Order.uncompleted.decorate
+  private
+
+  def load_products
+    @products = Product.all.decorate
+  end
+
+  def load_completed_orders
+    @completed = Order.completed
+  end
+
+  def load_uncompleted_orders
+    @uncompleted = Order.uncompleted
   end
 end

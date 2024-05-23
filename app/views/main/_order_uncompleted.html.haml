@@ -1,0 +1,5 @@
+.bg-gray-200.pt-8.pb-4.px-6.rounded-3xl.opacity-2
+  %div.mb-4
+    %h2.text-xl.font-medium.text-left.mb-2 Bestellungen
+    #orders
+      = render Order::Component.with_collection(@uncompleted, current_user: current_user)

@@ -20,13 +20,13 @@
   %body.flex
     .sidebar
       = render 'partials/sidebar'
+      = turbo_frame_tag "modal"
 
     .body-content
       = render 'partials/navbar'
 
       - if flash.present?
         - flash.each do |type,data|
-          -# = render 'partials/notification', type: type, data: data
           = render Shared::Notification::Component.new(type:, data:)
       %main.container
         .w-full.h-full

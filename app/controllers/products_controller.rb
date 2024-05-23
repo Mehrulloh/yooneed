@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :authenticate_user!,           except: %i[index]
-  before_action :set_product, only: %i[show edit update destroy order]
+  before_action :set_product, only: %i[show edit update destroy]
   before_action :authorize_product!, only: %i[edit update destroy]
   after_action  :verify_authorized, only: %i[edit update destroy]
 
@@ -47,21 +47,6 @@ class ProductsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to products_url, notice: "Product was successfully destroyed." }
       format.json { head :no_content }
-    end
-  end
-
-  def order
-    if Order.exists?(product_id: @product.id, status: :processing)
-      redirect_back fallback_location: root_path, alert: "#{@product.name} wurde schon bestellt!"
-    else
-      order = @product.orders.new(user_id: current_user.id, status: :processing, amount: 2)
-
-      if order.save
-        redirect_back fallback_location: root_path, alert: "Your order has been processed successfully."
-      else
-        puts order.errors.full_messages
-        redirect_back fallback_location: root_path, alert: "Another error"
-      end
     end
   end
 
