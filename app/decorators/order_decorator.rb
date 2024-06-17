@@ -6,7 +6,7 @@ class OrderDecorator < Draper::Decorator
   end
 
   def username(short: true)
-    user = context[:current_user]
+    user = User.find_by(id: order.user_id)
 
     short ? user.decorate.short_name : user.decorate.full_name
   end

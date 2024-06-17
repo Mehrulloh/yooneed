@@ -27,7 +27,7 @@ gem "turbo-rails"
 gem "stimulus-rails"
 
 # Use Tailwind CSS [https://github.com/rails/tailwindcss-rails]
-# gem "tailwindcss-rails"
+gem "tailwindcss-rails"
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
@@ -51,13 +51,20 @@ gem "bootsnap", require: false
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ]
-
+  gem 'factory_bot_rails'
   gem 'dotenv-rails'
+
+  group :development, :test do
+    gem 'webdrivers', '~> 5.3'
+  end
+
 end
 
 group :test do
-  gem "rspec-rails"
-  gem 'factory_bot_rails'
+  gem 'rspec-rails'
+  gem 'faker'
+  gem 'shoulda-matchers', '~> 5.0'
+  gem 'rails-controller-testing'
 end
 
 group :development do
@@ -78,10 +85,8 @@ group :test do
   gem "selenium-webdriver"
 end
 
-# Tailwind CSS [https://github.com/rails/tailwindcss-rails]
-gem 'tailwindcss-rails'
-
 gem 'haml-rails'
+gem 'sass-rails', '>= 6'
 gem 'view_component', '~> 2.52'
 gem 'draper'
 

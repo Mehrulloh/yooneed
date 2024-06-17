@@ -1,5 +1,5 @@
-class AddProductToOrders < ActiveRecord::Migration[7.1]
+class AddProductIdToOrders < ActiveRecord::Migration[6.0]
   def change
-    add_reference :orders, :product, index: true
+    add_column :orders, :product_id, :integer
   end
 end

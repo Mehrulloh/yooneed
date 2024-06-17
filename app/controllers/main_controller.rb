@@ -1,5 +1,4 @@
 class MainController < ApplicationController
-
   before_action :authenticate_user!
 
   def dashboard
@@ -15,10 +14,10 @@ class MainController < ApplicationController
   end
 
   def load_completed_orders
-    @completed = Order.completed
+    @completed = Order.completed.decorate
   end
 
   def load_uncompleted_orders
-    @uncompleted = Order.uncompleted
+    @uncompleted = Order.uncompleted.decorate
   end
 end

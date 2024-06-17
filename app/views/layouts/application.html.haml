@@ -25,9 +25,8 @@
     .body-content
       = render 'partials/navbar'
 
-      - if flash.present?
-        - flash.each do |type,data|
-          = render Shared::Notification::Component.new(type:, data:)
+      = render 'partials/flash'
+
       %main.container
         .w-full.h-full
           = yield

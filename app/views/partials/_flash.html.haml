@@ -1,0 +1,5 @@
+- if flash.present?
+  - flash.each do |type, data|
+    = render Shared::Notification::Component.new type: type, data: data
+
+= turbo_frame_tag :turbo_notifications, action: :replace

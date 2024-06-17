@@ -1,36 +1,27 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_product, only: [:create]
   before_action :set_order, except: [:create, :new]
 
   def new
     @product = Product.find(params[:product_id])
 
-    @order = @product.orders.new
-    respond_to do |format|
-      format.html { render :new }
-      format.turbo_stream { render :new }
-    end
+    @order = @product.orders.build
   end
 
   def create
-    if Order.exists?(order_params.except(:status))
-      respond_to do |format|
-        format.html { redirect_to root_path, alert: "#{@product.name} wurde schon bestellt!" }
-        format.turbo_stream
+    @order = Order.find_or_initialize_by(product_id: order_params[:product_id], status: :processing)
+
+    if @order.new_record?
+      @order.amount = order_params[:amount]
+      @order.user = current_user
+
+      if @order.save
+        handle_successful_order
+      else
+        handle_order_failure
       end
     else
-      @order = @product.orders.new(order_params)
-
-      respond_to do |format|
-        if @order.save
-          format.html { redirect_to root_path, notice: "Your order has been processed successfully." }
-          format.turbo_stream
-        else
-          format.html { redirect_back fallback_location: root_path, alert: "Failed to process the order." }
-          format.turbo_stream { render turbo_stream: turbo_stream.replace('flash', partial: 'shared/flash', locals: { alert: "Failed to process the order." }) }
-        end
-      end
+      handle_existing_order
     end
   end
 
@@ -52,6 +43,27 @@ class OrdersController < ApplicationController
 
   private
 
+  def handle_successful_order
+    respond_to do |format|
+      format.html { redirect_to root_path, notice: "Your order has been processed successfully." }
+      format.turbo_stream
+    end
+  end
+
+  def handle_existing_order
+    respond_to do |format|
+      format.html { redirect_to dashboard_path, alert: "#{@order.name} wurde schon bestellt!" }
+      format.turbo_stream { render turbo_stream: turbo_stream.replace(:turbo_notifications, partial: 'partials/turbo_notification', locals: { type: :info, data: "#{@order.name} wurde schon bestellt!" }) }
+    end
+  end
+
+  def handle_order_failure
+    respond_to do |format|
+      format.html { redirect_back fallback_location: root_path, alert: "Failed to process the order." }
+      format.turbo_stream { render turbo_stream: turbo_stream.replace(:turbo_notifications, partial: 'partials/turbo_notification', locals: { type: :info, data: "Failed to process the order." }) }
+    end
+  end
+
   def set_product
     @product = Product.find(order_params[:product_id])
   end
@@ -61,6 +73,6 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    params.require(:order).permit(:product_id, :name, :amount).merge(user_id: current_user.id, status: :processing)
+    params.require(:order).permit(:product_id, :amount)
   end
 end

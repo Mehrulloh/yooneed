@@ -2,7 +2,7 @@
 
 
 class Shared::Notification::Component < ApplicationComponent
-  attr_reader :type, :data
+  attr_accessor :type, :data
 
   def initialize(type:, data:)
     @type = type

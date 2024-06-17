@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
-  before_action :authenticate_user!,           except: %i[index]
-  before_action :set_product, only: %i[show edit update destroy]
-  before_action :authorize_product!, only: %i[edit update destroy]
+  before_action :authenticate_user!,            except: %i[index]
+  before_action :set_product,  only: %i[show edit update destroy]
+  before_action :authorize_product!,  only: %i[edit update destroy]
   after_action  :verify_authorized, only: %i[edit update destroy]
 
   def index
@@ -33,8 +33,6 @@ class ProductsController < ApplicationController
       if @product.update(product_params)
         format.html { redirect_to root_path, notice: "Product was successfully updated." }
       else
-        puts "Debugging: #{@product_errors}"
-        puts "Debugging: #{params.inspect}"
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @product.errors, status: :unprocessable_entity }
       end
