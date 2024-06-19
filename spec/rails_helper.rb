@@ -4,15 +4,15 @@ ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 
-require 'rspec/rails'
-require "factory_bot_rails"
 require "faker"
+require 'rspec/rails'
 require 'shoulda/matchers'
+require "factory_bot_rails"
+require 'database_cleaner/active_record'
 
 # Add Capybara and Selenium dependencies
 require 'capybara/rspec'
 require 'selenium/webdriver'
-require 'webdrivers/chromedriver'
 
 Rails.root.glob('spec/support/**/*.rb').sort.each { |f| require f }
 
@@ -22,37 +22,38 @@ rescue ActiveRecord::PendingMigrationError => e
   abort e.to_s.strip
 end
 
+DatabaseCleaner.strategy = :truncation
+
+
 RSpec.configure do |config|
-  config.fixture_path = Rails.root.join('spec', 'fixtures')
-
-  config.use_transactional_fixtures = true
-
-  # Include Capybara for feature (GUI) tests
-  config.include Capybara::DSL, type: :system
-
-  # Additional configuration for system tests
-  config.before(:each, type: :system) do
-    driven_by :selenium_chrome_headless
-  end
-
-  config.before(:each, type: :system, js: true) do
-    driven_by :selenium_chrome_headless
-  end
-
-  config.after(:each, type: :system, js: true) do
-    Capybara.current_session.driver.quit
-  end
-
-  # Include other helpers as needed
+  config.include ActiveSupport::Testing::TimeHelpers
+  config.include Devise::Test::ControllerHelpers, type: :component
   config.include Devise::Test::ControllerHelpers, type: :controller
-  config.include FactoryBot::Syntax::Methods
+  config.include Devise::Test::IntegrationHelpers, type: :request
   config.include ViewComponent::TestHelpers, type: :component
-  config.include ViewComponent::SystemTestHelpers, type: :component
-  config.include Warden::Test::Helpers, type: :request
+  config.include Capybara::RSpecMatchers, type: :component
+  config.include Warden::Test::Helpers, type: :controller
+  config.include Warden::Test::Helpers, type: :feature
+  config.include FactoryBot::Syntax::Methods
+  config.include Rails.application.routes.url_helpers, type: :component
+  config.include ApplicationHelper
 
+  config.filter_run :focus
+  config.use_transactional_fixtures = false
+  config.run_all_when_everything_filtered = true
+  config.filter_run_excluding skip: true
   config.infer_spec_type_from_file_location!
-
   config.filter_rails_from_backtrace!
+
+  config.before(:each, type: :feature) { Rails.application.load_seed }
+
+  config.before(:each, type: :component) do
+    @request = controller.request
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.clean
+  end
 
   # Setup shoulda-matchers
   Shoulda::Matchers.configure do |shoulda_config|
@@ -62,7 +63,3 @@ RSpec.configure do |config|
     end
   end
 end
-
-# Ensure ChromeDriver is available and up-to-date
-Webdrivers::Chromedriver.required_version = '94.0.4606.61'
-
